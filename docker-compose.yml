@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  geodata:
+#    image: mdillon/postgis:9.6
+    build:
+      context: ./geodata
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./geodata/database:/var/lib/postgresql/data
+      - ./geodata/datasets:/datasets
+      - ./geodata/initdb:/docker-entrypoint-initdb.d
+    environment:
+      - GEODATASETS=bag
+    restart: unless-stopped
